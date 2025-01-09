@@ -1,0 +1,52 @@
+import SwiftUI
+
+struct LoginView: View {
+    @Binding var isLoggedIn: Bool
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var errorMessage: AlertItem?
+
+    var body: some View {
+        VStack {
+            Text("Email : ")
+            TextField("Email", text: $email)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+//                .keyboardType(.emailAddress)
+//                .autocapitalization(.none)
+                .padding()
+            
+            Text("Password : ")
+            SecureField("Password", text: $password)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+
+            Button(action: {
+                if validateEmail(email) && !password.isEmpty {
+                    isLoggedIn = true
+                } else {
+                    errorMessage = AlertItem(message: "Invalid email or password")
+                }
+            }) {
+                Text("Login")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding()
+
+            if let errorMessage = errorMessage {
+                Text(errorMessage.message)
+                    .foregroundColor(.red)
+            }
+        }
+        .padding()
+        .alert(item: Binding<AlertItem?>(get: { errorMessage }, set: { errorMessage = $0 })) { error in
+            Alert(title: Text("Error"), message: Text(error.message), dismissButton: .default(Text("OK")))
+        }
+    }
+
+    func validateEmail(_ email: String) -> Bool {
+        return email.contains("@") && email.contains(".")
+    }
+}
