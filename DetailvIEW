@@ -1,0 +1,26 @@
+import SwiftUI
+
+struct DetailView: View {
+    var item: Item
+
+    var body: some View {
+        VStack {
+            Text(item.name)
+                .font(.largeTitle)
+                .padding()
+            Text("Created on: \(item.timestamp, formatter: dateFormatter)")
+                .font(.subheadline)
+                .padding()
+        }
+        .navigationTitle("Item Details")
+//        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+// Date formatter for displaying the timestamp
+let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .short
+    return formatter
+}()
