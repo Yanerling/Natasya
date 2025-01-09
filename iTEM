@@ -1,0 +1,15 @@
+import Foundation
+import SwiftData
+
+@Model
+final class Item: Identifiable {
+    @Attribute var id: UUID
+    @Attribute var name: String
+    @Attribute var timestamp: Date
+
+    init(name: String, timestamp: Date) {
+        self.id = UUID()
+        self.name = name
+        self.timestamp = timestamp
+    }
+}
