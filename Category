@@ -1,0 +1,15 @@
+import Foundation
+import SwiftData
+
+@Model
+final class Category: Identifiable {
+    @Attribute var id: UUID
+    @Attribute var name: String
+    @Attribute var items: [Item] // Relationship to items
+
+    init(name: String) {
+        self.id = UUID()
+        self.name = name
+        self.items = []
+    }
+}
