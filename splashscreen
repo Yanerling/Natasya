@@ -1,0 +1,22 @@
+import SwiftUI
+
+struct SplashScreen: View {
+    @Binding var isActive: Bool
+
+    var body: some View {
+        VStack {
+            Text("Kebab Brutal")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding()
+            // You can add an image or logo here
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // Show splash screen for 2 seconds
+                withAnimation {
+                    isActive = false // Transition to the main content
+                }
+            }
+        }
+    }
+}
